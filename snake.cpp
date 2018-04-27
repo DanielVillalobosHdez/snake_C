@@ -16,15 +16,16 @@ void pintar(struct Snake body[T], int size);
 void mover(struct Snake body[T], int size, struct Snake vel);
 void pintar_objeto(struct Snake *obj);
 void coger(struct Snake body[T], struct Snake *obj, int size);
+void teclas_mov(struct Snake *vel);
 
 int main(){
 	int size = 3;
 	struct Snake body[T];
 	struct Snake obj;
-	struct Snake vel = {1., 0};
+	struct Snake vel = {0, 0};
 	int contador = 0;
 
-	
+
 	srand(time(NULL));	
 
 	initscr();
@@ -38,9 +39,10 @@ int main(){
 		pintar(body, size);
 		pintar_objeto(&obj);
 		if(body[0].y == obj.y && body[0].x == obj.x){
-                	size++;
+			size++;
 			posicionar_objeto(&obj);
 		}
+		teclas_mov(&vel);
 		refresh();
 		usleep(100000);
 	}
@@ -67,6 +69,7 @@ void pintar(struct Snake body[T], int size){
 }
 
 void mover(struct Snake body[T], int size, struct Snake vel){
+
 	for(int m = size-1; m > 0; m--){
 		body[m].x = body[m-1].x;
 		body[m].y = body[m-1].y;
@@ -75,14 +78,14 @@ void mover(struct Snake body[T], int size, struct Snake vel){
 	body[0].x += vel.x;
 	body[0].y += vel.y;
 
-	if(body[0].x == 0 || body[0].y == 0 || body[0].x == COLS || body[0].y == LINES){
+	if(body[0].x == -1 || body[0].y == -1 || body[0].x == COLS || body[0].y == LINES){
 		endwin();
 		exit(1);
 	}
 }
 void pintar_objeto(struct Snake *obj){
 
-	mvprintw(obj->y, obj->x, "*");
+	mvprintw(obj->y, obj->x, "$");
 }
 void coger(struct Snake body[T], struct Snake *obj, int size){
 	if(body[0].y == obj->y && body[0].x == obj->x)
@@ -91,5 +94,42 @@ void coger(struct Snake body[T], struct Snake *obj, int size){
 
 void posicionar_objeto(struct Snake *obj){
 	obj -> x = rand() % COLS -1;
-        obj -> y = rand() % LINES -1 ;
+	obj -> y = rand() % LINES -1 ;
+}
+
+void teclas_mov (struct Snake *vel){
+	char mv;
+
+	mv = getch();
+
+	switch(mv) {
+		case 'w':
+		case 'W':
+			if(vel->y == 0){
+			vel->y = -1;
+			vel->x = 0;
+			}
+			break;
+		case 'a':
+		case 'A':
+			if(vel->x == 0){
+			vel->x = -1;
+			vel->y = 0;
+			}
+			break;
+		case 's':
+		case 'S': 
+			if(vel->y == 0){
+			vel->y = 1;
+			vel->x = 0;
+			}
+			break;
+		case 'd':
+		case 'D':
+			if(vel->x == 0){
+			vel->x = 1;
+			vel->y = 0;
+			}
+			break;
+	}
 }
