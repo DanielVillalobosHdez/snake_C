@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <time.h>
 
+
 #define N 4
 #define T 25 /*Maximo del cuerpo*/
 struct Snake {
@@ -99,6 +100,7 @@ void posicionar_objeto(struct Snake *obj){
 
 void teclas_mov (struct Snake *vel){
 	char mv;
+	int ult_pos_y, ult_pos_x;
 
 	mv = getch();
 
@@ -108,6 +110,8 @@ void teclas_mov (struct Snake *vel){
 			if(vel->y == 0){
 			vel->y = -1;
 			vel->x = 0;
+			ult_pos_y = vel->y;
+			ult_pos_x = vel->x;
 			}
 			break;
 		case 'a':
@@ -115,6 +119,8 @@ void teclas_mov (struct Snake *vel){
 			if(vel->x == 0){
 			vel->x = -1;
 			vel->y = 0;
+			ult_pos_y = vel->y;
+			ult_pos_x = vel->x;
 			}
 			break;
 		case 's':
@@ -122,6 +128,8 @@ void teclas_mov (struct Snake *vel){
 			if(vel->y == 0){
 			vel->y = 1;
 			vel->x = 0;
+			ult_pos_y = vel->y;
+			ult_pos_x = vel->x;
 			}
 			break;
 		case 'd':
@@ -129,7 +137,13 @@ void teclas_mov (struct Snake *vel){
 			if(vel->x == 0){
 			vel->x = 1;
 			vel->y = 0;
+			ult_pos_y = vel->y;
+			ult_pos_x = vel->x;
 			}
+			break;
+		default:
+			ult_pos_y;
+			ult_pos_x;
 			break;
 	}
 }
