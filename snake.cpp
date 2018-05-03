@@ -6,7 +6,10 @@
 
 #define N 4
 #define T 25 /*Maximo del cuerpo*/
-
+#define KEY_UP 261
+#define KEY_DOWN 260
+#define KEY_LEFT 259 
+#define KEY_RIGHT 258
 struct Snake {
     double x;
     double y;
@@ -112,7 +115,7 @@ void teclas_mov (struct Snake *vel){
     switch(mv) {
         case 'w':
         case 'W':
-            //  case NCURSES_KEY_UP:
+        case KEY_UP:
             if(vel->y == 0){
                 vel->y = -1;
                 vel->x = 0;
@@ -122,7 +125,7 @@ void teclas_mov (struct Snake *vel){
             break;
         case 'a':
         case 'A':
-            //case NCURSES_KEY_LEFT:
+        case KEY_LEFT:
             if(vel->x == 0){
                 vel->x = -1;
                 vel->y = 0;
@@ -132,7 +135,7 @@ void teclas_mov (struct Snake *vel){
             break;
         case 's':
         case 'S': 
-            //case NCURSES_KEY_DOWN:
+        case KEY_DOWN:
             if(vel->y == 0){
                 vel->y = 1;
                 vel->x = 0;
@@ -142,7 +145,7 @@ void teclas_mov (struct Snake *vel){
             break;
         case 'd':
         case 'D':
-       // case NCURSES_KEY_RIGHT:
+        case KEY_RIGHT:
             if(vel->x == 0){
                 vel->x = 1;
                 vel->y = 0;
